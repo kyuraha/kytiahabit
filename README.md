@@ -202,4 +202,4 @@ src/
 
 Semua definisi ada di **satu file**: `src/lib/constants.js`.
 Mau tambah salat sunnah, ganti target km, atau ubah jumlah fase?
-Cukup edit di sana — matrix, editor, dan perhitungan skor ikut menyesuaikan.
+Cukup edit di sana — matrix, editor, dan perhitungan skor ikut menyesuaikan
