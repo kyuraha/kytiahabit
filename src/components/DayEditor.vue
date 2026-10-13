@@ -120,7 +120,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
               <div class="rows">
                 <div v-for="p in PRAYERS" :key="p.key" class="row">
                   <span class="row-label">{{ p.label }}</span>
-                  <StatusPicker v-model="draft.salat[p.key]" :levels="SALAT_LEVELS" />
+                  <StatusPicker v-model="draft.salat[p.key]" :levels="SALAT_LEVELS" compact />
                 </div>
               </div>
             </section>
@@ -189,7 +189,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
               <div class="rows">
                 <div v-for="f in PHASES" :key="f.key" class="row">
                   <span class="row-label">{{ f.label }}</span>
-                  <StatusPicker v-model="draft.notoxic[f.key]" :levels="NOTOXIC_LEVELS" />
+                  <StatusPicker v-model="draft.notoxic[f.key]" :levels="NOTOXIC_LEVELS" compact />
                 </div>
               </div>
             </section>
@@ -249,7 +249,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
   position: fixed;
   inset: 0;
   z-index: 60;
-  background: rgba(58, 50, 40, 0.38);
+  background: rgba(28, 31, 27, 0.46);
   backdrop-filter: blur(3px);
   display: flex;
   justify-content: flex-end;
@@ -289,7 +289,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 .close {
   width: 32px;
   height: 32px;
-  border-radius: 9px;
+  border-radius: 6px;
   color: var(--text-3);
   font-size: 14px;
   transition: all 0.14s ease;
@@ -306,16 +306,16 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 .body {
   flex: 1;
   overflow-y: auto;
-  padding: 18px 20px 8px;
+  padding: 16px 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .sec {
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 13px 14px 14px;
+  padding: 14px;
   background: var(--surface);
 }
 
@@ -323,7 +323,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 11px;
+  margin-bottom: 14px;
 }
 
 .sec-title {
@@ -341,22 +341,22 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 
 .mini {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 650;
   color: var(--accent);
   padding: 3px 8px;
-  border-radius: 7px;
+  border-radius: 5px;
   background: var(--accent-soft);
   transition: background 0.14s ease;
 }
 
 .mini:hover {
-  background: #d9e5e8;
+  background: #c9d6d8;
 }
 
 .rows {
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 10px;
 }
 
 .row {
@@ -366,7 +366,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 }
 
 .row + .row {
-  margin-top: 9px;
+  margin-top: 10px;
 }
 
 .rows .row + .row {
@@ -400,24 +400,24 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 }
 
 .badge.ok {
-  background: #e9efe5;
-  color: #4c6b46;
+  background: #dde5d9;
+  color: #33452f;
 }
 
 .badge.warn {
-  background: #f7e9dd;
-  color: #8e5630;
+  background: #edddd2;
+  color: #6e3c1f;
 }
 
 .notes {
   width: 100%;
   border: 1px solid var(--border-strong);
-  border-radius: 10px;
-  padding: 10px 12px;
+  border-radius: 8px;
+  padding: 12px;
   resize: vertical;
   outline: none;
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.55;
   background: var(--surface);
   transition: border-color 0.14s ease, box-shadow 0.14s ease;
 }

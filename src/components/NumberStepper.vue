@@ -54,7 +54,7 @@ const inc = () => set(Math.round((value.value + props.step) * 100) / 100)
   gap: 0;
   height: 40px;
   border: 1px solid var(--border-strong);
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--surface);
   overflow: hidden;
   transition: border-color 0.14s ease, box-shadow 0.14s ease;
@@ -66,14 +66,16 @@ const inc = () => set(Math.round((value.value + props.step) * 100) / 100)
 }
 
 .stepper.met {
-  border-color: #a9c3a0;
-  background: #f2f6ef;
+  border-color: #8ba382;
+  background: #e9ede6;
 }
 
 .sbtn {
-  width: 40px;
+  width: 38px;
   flex: none;
-  font-size: 17px;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
   font-weight: 500;
   color: var(--text-2);
   background: var(--surface-2);
@@ -93,23 +95,25 @@ const inc = () => set(Math.round((value.value + props.step) * 100) / 100)
 
 .field {
   flex: 1;
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 4px;
   min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 12px;
 }
 
 .field input {
-  width: 100%;
-  min-width: 0;
+  height: 100%;
+  width: 4.5ch;
+  flex: none;
   border: none;
   outline: none;
   background: transparent;
-  text-align: center;
+  text-align: right;
   font-size: 15px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
+  line-height: 1;
   padding: 0;
   -moz-appearance: textfield;
   appearance: textfield;
@@ -122,10 +126,10 @@ const inc = () => set(Math.round((value.value + props.step) * 100) / 100)
 }
 
 .unit {
-  font-size: 11.5px;
-  color: var(--text-3);
-  font-weight: 500;
   flex: none;
-  padding-right: 8px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text-3);
+  line-height: 1;
 }
 </style>

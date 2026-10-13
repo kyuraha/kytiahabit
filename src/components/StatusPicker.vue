@@ -50,7 +50,7 @@ function pick(key) {
   gap: 6px;
   height: 34px;
   padding: 0 8px;
-  border-radius: 9px;
+  border-radius: 7px;
   border: 1px solid var(--border-strong);
   background: var(--surface);
   color: var(--text-2);
@@ -72,7 +72,7 @@ function pick(key) {
 
 .opt:hover {
   background: var(--surface-3);
-  border-color: #d6cebf;
+  border-color: #a8a496;
 }
 
 .opt.active {
@@ -87,17 +87,37 @@ function pick(key) {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 22%, transparent);
 }
 
+/* Mode ringkas: hanya blok warna, tanpa teks */
+.compact {
+  display: flex;
+  gap: 8px;
+}
+
 .compact .opt {
-  height: 30px;
+  width: 40px;
+  height: 40px;
   padding: 0;
+  border-radius: 8px;
+  background: var(--soft);
+  border-color: color-mix(in srgb, var(--c) 30%, transparent);
+}
+
+.compact .opt .dot {
+  display: none;
 }
 
 .compact .txt {
   display: none;
 }
 
-.compact .opt .dot {
-  width: 11px;
-  height: 11px;
+.compact .opt:hover {
+  background: color-mix(in srgb, var(--c) 26%, var(--surface));
+  border-color: color-mix(in srgb, var(--c) 55%, transparent);
+}
+
+.compact .opt.active {
+  background: var(--c);
+  border-color: var(--c);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--c) 26%, transparent);
 }
 </style>

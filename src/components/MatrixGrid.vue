@@ -181,7 +181,7 @@ const isFuture = (d) => toKey(d) > today
   align-items: center;
   justify-content: center;
   gap: 1px;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .dayhead .dname {
@@ -201,7 +201,7 @@ const isFuture = (d) => toKey(d) > today
 
 .dayhead.weekend .dname,
 .dayhead.weekend .dnum {
-  color: #b07d78;
+  color: #8f5247;
 }
 
 .dayhead.future .dname,
@@ -234,7 +234,7 @@ const isFuture = (d) => toKey(d) > today
   gap: 7px;
   height: 30px;
   padding-left: 9px;
-  border-radius: 7px;
+  border-radius: 5px;
 }
 
 .gname {
@@ -310,7 +310,7 @@ const isFuture = (d) => toKey(d) > today
   align-items: center;
   justify-content: center;
   border: 1px solid transparent;
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 0;
   transition: transform 0.1s ease, box-shadow 0.13s ease, background 0.13s ease;
   position: relative;
@@ -323,7 +323,7 @@ const isFuture = (d) => toKey(d) > today
 
 .mode-month .cell {
   height: 26px;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 .cell:hover {

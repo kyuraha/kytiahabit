@@ -1,38 +1,39 @@
 :root {
-  /* Kertas & permukaan — putih hangat, bukan putih murni */
-  --bg: #f4f1ea;
-  --surface: #fffefb;
-  --surface-2: #faf8f3;
-  --surface-3: #f0ece3;
-  --border: #e6e0d4;
-  --border-strong: #d6cebf;
+  /* Batu & abu — dingin, keras, tidak manis */
+  --bg: #e0ded6;
+  --surface: #f4f3ee;
+  --surface-2: #ebe9e2;
+  --surface-3: #dcdad1;
+  --border: #cbc8be;
+  --border-strong: #b2afa2;
 
-  /* Tinta — abu kehijauan, bukan hitam */
-  --text: #333f3e;
-  --text-2: #6a7472;
-  --text-3: #9aa19c;
+  /* Tinta — hampir hitam, sedikit kehijauan */
+  --text: #262923;
+  --text-2: #54584e;
+  --text-3: #83867b;
 
-  /* Aksen — biru senja */
-  --accent: #5c7f8b;
-  --accent-soft: #e6eef0;
-  --accent-ink: #3d5b65;
+  /* Aksen — baja yang dingin */
+  --accent: #435c64;
+  --accent-soft: #dae1e2;
+  --accent-ink: #2c4349;
 
-  /* Status — versi pudar dari hijau/kuning/oren/merah */
-  --green: #7a9a72;
-  --yellow: #c2a559;
-  --orange: #c2805a;
-  --red: #b06e6c;
+  /* Status — warna bumi, bukan pastel */
+  --green: #4f6b4a;
+  --yellow: #a8862f;
+  --orange: #a85f34;
+  --red: #8f3f3a;
 
-  --radius-sm: 8px;
-  --radius: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 22px;
+  /* Sudut tajam — makin kecil, makin serius */
+  --radius-sm: 5px;
+  --radius: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
 
-  /* Bayangan hangat & menyebar, seperti tepi cat air */
-  --shadow-xs: 0 1px 2px rgba(90, 78, 58, 0.05);
-  --shadow-sm: 0 2px 6px rgba(90, 78, 58, 0.06), 0 1px 2px rgba(90, 78, 58, 0.04);
-  --shadow-md: 0 8px 22px -4px rgba(90, 78, 58, 0.1);
-  --shadow-lg: 0 28px 56px -16px rgba(90, 78, 58, 0.22);
+  /* Bayangan rapat & gelap, bukan mengambang lembut */
+  --shadow-xs: 0 1px 2px rgba(38, 41, 35, 0.08);
+  --shadow-sm: 0 1px 3px rgba(38, 41, 35, 0.1), 0 1px 2px rgba(38, 41, 35, 0.06);
+  --shadow-md: 0 4px 14px rgba(38, 41, 35, 0.13);
+  --shadow-lg: 0 20px 44px -14px rgba(38, 41, 35, 0.34);
 
   --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
@@ -51,12 +52,12 @@ body {
 }
 
 body {
-  /* Cucian cat air tipis di atas kertas */
+  /* Lapisan cuaca: lumut, baja, dan tanah kering */
   background-color: var(--bg);
   background-image:
-    radial-gradient(1100px 640px at 10% -10%, rgba(111, 143, 122, 0.13), transparent 62%),
-    radial-gradient(980px 560px at 94% 2%, rgba(99, 128, 155, 0.12), transparent 64%),
-    radial-gradient(820px 520px at 68% 104%, rgba(194, 165, 89, 0.1), transparent 62%);
+    radial-gradient(1100px 640px at 6% -14%, rgba(79, 107, 74, 0.2), transparent 58%),
+    radial-gradient(1000px 580px at 98% -6%, rgba(67, 92, 100, 0.2), transparent 60%),
+    radial-gradient(900px 560px at 74% 108%, rgba(168, 134, 47, 0.13), transparent 58%);
   background-attachment: fixed;
   color: var(--text);
   font-family: var(--font);
@@ -105,8 +106,8 @@ a {
   gap: 7px;
   height: 38px;
   padding: 0 15px;
-  border-radius: 10px;
-  font-weight: 550;
+  border-radius: 8px;
+  font-weight: 600;
   font-size: 13.5px;
   border: 1px solid var(--border-strong);
   background: var(--surface);
@@ -132,13 +133,13 @@ a {
 .btn-primary {
   background: var(--accent);
   border-color: var(--accent);
-  color: #fff;
-  box-shadow: 0 1px 2px rgba(79, 70, 229, 0.3);
+  color: #f2f1ec;
+  box-shadow: 0 1px 2px rgba(38, 41, 35, 0.2);
 }
 
 .btn-primary:hover {
-  background: #4338ca;
-  border-color: #4338ca;
+  background: #33484f;
+  border-color: #33484f;
 }
 
 .btn-ghost {
@@ -169,15 +170,15 @@ a {
   padding: 3px;
   gap: 2px;
   background: var(--surface-3);
-  border-radius: 11px;
+  border-radius: 9px;
   border: 1px solid var(--border);
 }
 
 .segmented button {
   height: 30px;
   padding: 0 14px;
-  border-radius: 8px;
-  font-weight: 550;
+  border-radius: 6px;
+  font-weight: 600;
   font-size: 13px;
   color: var(--text-2);
   transition: all 0.15s ease;
@@ -210,13 +211,13 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d8d1c2;
+  background: #c2bfb3;
   border-radius: 20px;
   border: 2px solid var(--bg);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #c2b9a6;
+  background: #a8a496;
 }
 
 /* ---------- Transisi ---------- */

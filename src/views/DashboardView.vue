@@ -187,7 +187,7 @@ const editorEntry = computed(() => days.getDay(editorKey.value))
   align-items: center;
   gap: 18px;
   padding: 12px 22px;
-  background: rgba(255, 254, 251, 0.86);
+  background: rgba(244, 243, 238, 0.88);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   flex-wrap: wrap;
@@ -209,7 +209,7 @@ const editorEntry = computed(() => days.getDay(editorKey.value))
 .navbtn {
   width: 30px;
   height: 30px;
-  border-radius: 8px;
+  border-radius: 7px;
   border: 1px solid var(--border-strong);
   background: var(--surface);
   color: var(--text-2);
@@ -246,7 +246,7 @@ const editorEntry = computed(() => days.getDay(editorKey.value))
   color: var(--accent);
   background: var(--accent-soft);
   padding: 2px 7px;
-  border-radius: 20px;
+  border-radius: 4px;
 }
 
 .right {
@@ -270,7 +270,7 @@ const editorEntry = computed(() => days.getDay(editorKey.value))
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: linear-gradient(140deg, #5c7f8b, #7d97a0);
+  background: linear-gradient(140deg, #435c64, #5b757b);
   color: #fff;
   font-weight: 700;
   font-size: 13.5px;
@@ -324,25 +324,25 @@ const editorEntry = computed(() => days.getDay(editorKey.value))
   margin-top: 6px;
   font-size: 10px;
   font-weight: 700;
-  color: #7d6528;
-  background: #f8f1e0;
+  color: #6d561c;
+  background: #ece4cf;
   padding: 2px 7px;
-  border-radius: 20px;
+  border-radius: 4px;
 }
 
 .menu-item {
   width: 100%;
   text-align: left;
   padding: 8px 10px;
-  border-radius: 8px;
+  border-radius: 6px;
   font-size: 13px;
   font-weight: 550;
-  color: #894947;
+  color: #5e2724;
   transition: background 0.13s ease;
 }
 
 .menu-item:hover {
-  background: #f4e5e3;
+  background: #e8d8d6;
 }
 
 .scrim {
@@ -388,9 +388,9 @@ const editorEntry = computed(() => days.getDay(editorKey.value))
 
 .err {
   font-size: 13px;
-  color: #894947;
-  background: #f4e5e3;
-  border: 1px solid #e3cfcc;
+  color: #5e2724;
+  background: #e8d8d6;
+  border: 1px solid #cdb3b0;
   border-radius: var(--radius);
   padding: 10px 14px;
 }
