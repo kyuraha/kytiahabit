@@ -68,6 +68,59 @@ service cloud.firestore {
 
 ---
 
+## Deploy ke Cloudflare Pages
+
+### Pengaturan build
+
+| Kolom | Nilai |
+|---|---|
+| Framework preset | **Vue** |
+| Build command | `npm run build` |
+| Build output directory | `dist` |
+| Root directory | *(kosongkan)* |
+
+Preset **Vue** sudah otomatis mengisi build command dan output directory yang benar
+(`npm run build` → `dist`). Kalau di dropdown tersedia **Vite**, itu sama persis untuk
+proyek ini — pilih mana saja, hasilnya identik.
+
+### Environment variables (wajib)
+
+Vite **menanam** nilai `VITE_*` ke dalam bundle saat build berjalan. Artinya variabel
+ini harus sudah ada **sebelum** build, bukan setelahnya. Tambahkan di
+**Pages → Settings → Environment variables** (isi untuk Production *dan* Preview):
+
+```
+VITE_FIREBASE_API_KEY
+VITE_FIREBASE_AUTH_DOMAIN
+VITE_FIREBASE_PROJECT_ID
+VITE_FIREBASE_STORAGE_BUCKET
+VITE_FIREBASE_MESSAGING_SENDER_ID
+VITE_FIREBASE_APP_ID
+```
+
+Kalau lupa, situs **tidak error** — dia diam-diam jalan di Demo Mode (data tersimpan
+lokal per-browser) dan kamu baru sadar setelah data tidak tersinkron. Jadi pastikan
+benar-benar terisi.
+
+> Nilai-nilai ini akan terlihat di bundle publik. Itu normal dan memang begitu desain
+> Firebase: API key bukan rahasia, yang menjaga data adalah Security Rules.
+
+### Setelah deploy: daftarkan domain ke Firebase
+
+Firebase menolak login dari domain yang tidak dikenal dengan error
+`auth/unauthorized-domain`. Buka **Firebase Console → Authentication → Settings →
+Authorized domains**, lalu tambahkan domain `*.pages.dev` kamu (plus custom domain
+kalau ada). `localhost` sudah otomatis terdaftar.
+
+### Yang sudah disiapkan di repo
+
+- `public/_redirects` → `/* /index.html 200`. **Wajib** untuk SPA: tanpa ini, refresh
+  atau akses langsung ke `/login` akan 404 karena Cloudflare hanya menyajikan file statis.
+- `public/_headers` → `/assets/*` di-cache setahun (nama filenya sudah ber-hash),
+  `index.html` selalu di-revalidate supaya deploy baru langsung terpakai.
+
+---
+
 ## Habit yang dilacak
 
 | Habit | Isi | Skor harian |

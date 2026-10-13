@@ -1,0 +1,10 @@
+# Aset hasil build punya hash di nama filenya -> aman di-cache selamanya.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# index.html jangan di-cache supaya deploy baru langsung terpakai.
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
