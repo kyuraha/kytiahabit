@@ -66,8 +66,8 @@ const inc = () => set(Math.round((value.value + props.step) * 100) / 100)
 }
 
 .stepper.met {
-  border-color: #86e0a8;
-  background: #f4fdf7;
+  border-color: #a9c3a0;
+  background: #f2f6ef;
 }
 
 .sbtn {

@@ -1,8 +1,8 @@
-/** Helper tanggal. Semua "date key" memakai format YYYY-MM-DD. Minggu dimulai Senin. */
+/** Helper tanggal. Semua "date key" memakai format YYYY-MM-DD. Minggu dimulai Minggu. */
 
-export const DAY_NAMES = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min']
+export const DAY_NAMES = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab']
 export const DAY_NAMES_FULL = [
-  'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu',
+  'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu',
 ]
 export const MONTH_NAMES = [
   'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
@@ -25,17 +25,16 @@ export function fromKey(key) {
 
 export const todayKey = () => toKey(new Date())
 
-/** 0 = Senin ... 6 = Minggu */
-export function isoWeekday(date) {
-  const d = new Date(date)
-  return (d.getDay() + 6) % 7
+/** 0 = Minggu, 1 = Senin, ... 6 = Sabtu. */
+export function weekdayIndex(date) {
+  return new Date(date).getDay()
 }
 
-/** Senin sebagai awal minggu. */
+/** Minggu sebagai awal minggu. */
 export function startOfWeek(date) {
   const d = new Date(date)
   d.setHours(0, 0, 0, 0)
-  d.setDate(d.getDate() - isoWeekday(d))
+  d.setDate(d.getDate() - weekdayIndex(d))
   return d
 }
 
@@ -67,7 +66,7 @@ export function endOfMonth(date) {
   return new Date(d.getFullYear(), d.getMonth() + 1, 0)
 }
 
-/** Array of Date untuk 7 hari pada minggu yang memuat `date`. */
+/** Array of Date untuk 7 hari pada minggu yang memuat `date` (Minggu s.d. Sabtu). */
 export function weekDates(date) {
   const start = startOfWeek(date)
   return Array.from({ length: 7 }, (_, i) => addDays(start, i))
@@ -84,8 +83,10 @@ export function isSameDay(a, b) {
   return toKey(a) === toKey(b)
 }
 
+/** Sabtu & Minggu. */
 export function isWeekend(date) {
-  return isoWeekday(date) >= 5
+  const i = weekdayIndex(date)
+  return i === 0 || i === 6
 }
 
 /** '13 Okt' */
@@ -100,7 +101,7 @@ export function mediumLabel(date) {
   return `${d.getDate()} ${MONTH_NAMES[d.getMonth()].slice(0, 3)} ${d.getFullYear()}`
 }
 
-/** Label rentang untuk header, contoh: '13 – 19 Okt 2026' atau 'Oktober 2026'. */
+/** Label rentang untuk header, contoh: '11 – 17 Okt 2026' atau 'Oktober 2026'. */
 export function rangeLabel(mode, anchor) {
   if (mode === 'month') {
     const d = new Date(anchor)

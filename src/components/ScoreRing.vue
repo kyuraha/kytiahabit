@@ -17,11 +17,11 @@ const dash = computed(() => {
 
 const color = computed(() => {
   const s = props.score
-  if (s == null) return '#cbd5e1'
-  if (s >= 80) return '#22c55e'
-  if (s >= 55) return '#eab308'
-  if (s >= 30) return '#f97316'
-  return '#ef4444'
+  if (s == null) return '#ded7c9'
+  if (s >= 80) return '#7a9a72'
+  if (s >= 55) return '#c2a559'
+  if (s >= 30) return '#c2805a'
+  return '#b06e6c'
 })
 </script>
 
@@ -33,7 +33,7 @@ const color = computed(() => {
         :cy="size / 2"
         :r="radius"
         fill="none"
-        stroke="#eef1f5"
+        stroke="#eeeae1"
         :stroke-width="stroke"
       />
       <circle

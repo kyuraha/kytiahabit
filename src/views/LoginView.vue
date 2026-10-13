@@ -1,7 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import { ROW_GROUPS } from '@/lib/constants'
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -17,50 +16,29 @@ async function google() {
     <!-- Sisi kiri: branding -->
     <aside class="brand">
       <div class="brand-inner">
-        <div class="logo">
-          <span class="logo-mark">✅</span>
-          <span class="logo-text">Kytia Habit</span>
-        </div>
+        <div class="logo">Kytia Habit</div>
 
-        <h1 class="headline">
-          Lacak kebiasaan harianmu,<br />
-          lihat progresnya per minggu &amp; bulan.
-        </h1>
+        <h1 class="headline">Catat kebiasaan harianmu.</h1>
 
-        <p class="sub">
-          Satu tempat untuk salat, lari, semedi, kerja, no toxic, jurnaling, dan belajar.
-          Ditandai sekali klik, langsung terbaca polanya.
-        </p>
-
-        <ul class="features">
-          <li v-for="g in ROW_GROUPS" :key="g.key">
-            <span class="f-icon" :style="{ background: g.color + '18' }">{{ g.icon }}</span>
-            <span class="f-label">{{ g.label }}</span>
-          </li>
-        </ul>
+        <p class="sub">Mingguan dan bulanan, dalam satu tampilan.</p>
       </div>
-      <div class="brand-foot">Dibuat untuk dipakai tiap hari — bukan dipajang.</div>
     </aside>
 
     <!-- Sisi kanan: login -->
     <main class="form-side">
       <div class="form-card">
-        <div class="mobile-logo">
-          <span class="logo-mark">✅</span>
-          <span class="logo-text">Kytia Habit</span>
-        </div>
+        <div class="mobile-logo">Kytia Habit</div>
 
         <div class="form-head">
           <h2>Masuk</h2>
-          <p>Pakai akun Google kamu — tidak perlu bikin password baru.</p>
+          <p>Pakai akun Google.</p>
         </div>
 
         <div v-if="auth.demo" class="demo-banner">
           <span class="dot" />
           <div>
-            <strong>Mode Demo aktif.</strong>
-            Firebase belum dikonfigurasi, jadi kamu akan masuk sebagai pengguna demo dan
-            data tersimpan di browser ini saja.
+            <strong>Mode Demo.</strong> Firebase belum dikonfigurasi — data tersimpan di
+            browser ini.
           </div>
         </div>
 
@@ -75,17 +53,6 @@ async function google() {
         </button>
 
         <p v-if="auth.error" class="error">{{ auth.error }}</p>
-
-        <div class="trust">
-          <div class="trust-item">
-            <span class="tick">🔒</span>
-            <span>Datamu tersimpan di akunmu sendiri, hanya bisa diakses olehmu.</span>
-          </div>
-          <div class="trust-item">
-            <span class="tick">☁️</span>
-            <span>Tersinkron otomatis lewat Firebase — buka dari perangkat mana pun.</span>
-          </div>
-        </div>
       </div>
     </main>
   </div>
@@ -106,7 +73,7 @@ async function google() {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: linear-gradient(155deg, #eef1ff 0%, #f7f9ff 45%, #f4fbf7 100%);
+  background: linear-gradient(150deg, #e7eef0 0%, #f2f1e9 44%, #eef0e5 72%, #f0eae1 100%);
   border-right: 1px solid var(--border);
   overflow: hidden;
 }
@@ -114,12 +81,12 @@ async function google() {
 .brand::after {
   content: '';
   position: absolute;
-  width: 460px;
-  height: 460px;
-  right: -180px;
-  bottom: -200px;
+  width: 520px;
+  height: 520px;
+  right: -200px;
+  bottom: -220px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(79, 70, 229, 0.12), transparent 68%);
+  background: radial-gradient(circle, rgba(111, 143, 122, 0.16), transparent 68%);
 }
 
 .brand-inner {
@@ -129,74 +96,27 @@ async function google() {
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 44px;
-}
-
-.logo-mark {
-  font-size: 22px;
-}
-
-.logo-text {
-  font-size: 16px;
-  font-weight: 750;
-  letter-spacing: -0.02em;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--text-2);
+  margin-bottom: 52px;
 }
 
 .headline {
-  font-size: 31px;
-  line-height: 1.22;
+  font-size: 33px;
+  line-height: 1.24;
   font-weight: 750;
-  letter-spacing: -0.028em;
+  letter-spacing: -0.032em;
   color: var(--text);
+  max-width: 15ch;
 }
 
 .sub {
-  margin-top: 16px;
+  margin-top: 18px;
   font-size: 14.5px;
   line-height: 1.65;
   color: var(--text-2);
-}
-
-.features {
-  list-style: none;
-  padding: 0;
-  margin: 30px 0 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.features li {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 6px 12px 6px 6px;
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  font-size: 12.5px;
-  font-weight: 550;
-  color: var(--text-2);
-  backdrop-filter: blur(4px);
-}
-
-.f-icon {
-  width: 24px;
-  height: 24px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  font-size: 12px;
-}
-
-.brand-foot {
-  position: relative;
-  z-index: 1;
-  font-size: 12.5px;
-  color: var(--text-3);
 }
 
 /* ---------- Login ---------- */
@@ -215,9 +135,11 @@ async function google() {
 
 .mobile-logo {
   display: none;
-  align-items: center;
-  gap: 9px;
-  margin-bottom: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--text-2);
+  margin-bottom: 34px;
 }
 
 .form-head h2 {
@@ -239,18 +161,18 @@ async function google() {
   margin-top: 20px;
   padding: 11px 13px;
   border-radius: 11px;
-  background: #fffbeb;
-  border: 1px solid #fde68a;
+  background: #f8f1e0;
+  border: 1px solid #e7d8b2;
   font-size: 12px;
   line-height: 1.55;
-  color: #92400e;
+  color: #7d6528;
 }
 
 .demo-banner .dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #f59e0b;
+  background: #c2a559;
   margin-top: 5px;
   flex: none;
 }
@@ -284,34 +206,11 @@ async function google() {
   margin-top: 14px;
   font-size: 12.5px;
   line-height: 1.55;
-  color: #b91c1c;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
+  color: #894947;
+  background: #f4e5e3;
+  border: 1px solid #e3cfcc;
   border-radius: 10px;
   padding: 10px 12px;
-}
-
-.trust {
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
-}
-
-.trust-item {
-  display: flex;
-  gap: 9px;
-  font-size: 12.5px;
-  line-height: 1.55;
-  color: var(--text-3);
-}
-
-.tick {
-  flex: none;
-  font-size: 12px;
-  line-height: 1.5;
 }
 
 @media (max-width: 900px) {
@@ -324,9 +223,8 @@ async function google() {
     border-bottom: 1px solid var(--border);
   }
   .headline {
-    font-size: 24px;
+    font-size: 25px;
   }
-  .brand-foot,
   .logo {
     display: none;
   }

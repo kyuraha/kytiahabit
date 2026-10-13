@@ -1,33 +1,38 @@
 :root {
-  --bg: #f5f7fa;
-  --surface: #ffffff;
-  --surface-2: #fbfcfe;
-  --surface-3: #f2f5f8;
-  --border: #e9edf2;
-  --border-strong: #dbe1e9;
+  /* Kertas & permukaan — putih hangat, bukan putih murni */
+  --bg: #f4f1ea;
+  --surface: #fffefb;
+  --surface-2: #faf8f3;
+  --surface-3: #f0ece3;
+  --border: #e6e0d4;
+  --border-strong: #d6cebf;
 
-  --text: #16202e;
-  --text-2: #59647a;
-  --text-3: #98a2b3;
+  /* Tinta — abu kehijauan, bukan hitam */
+  --text: #333f3e;
+  --text-2: #6a7472;
+  --text-3: #9aa19c;
 
-  --accent: #4f46e5;
-  --accent-soft: #eef0ff;
-  --accent-ink: #3730a3;
+  /* Aksen — biru senja */
+  --accent: #5c7f8b;
+  --accent-soft: #e6eef0;
+  --accent-ink: #3d5b65;
 
-  --green: #22c55e;
-  --yellow: #eab308;
-  --orange: #f97316;
-  --red: #ef4444;
+  /* Status — versi pudar dari hijau/kuning/oren/merah */
+  --green: #7a9a72;
+  --yellow: #c2a559;
+  --orange: #c2805a;
+  --red: #b06e6c;
 
   --radius-sm: 8px;
   --radius: 12px;
-  --radius-lg: 18px;
-  --radius-xl: 24px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
 
-  --shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.04);
-  --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.06), 0 1px 2px rgba(16, 24, 40, 0.04);
-  --shadow-md: 0 6px 16px rgba(16, 24, 40, 0.07);
-  --shadow-lg: 0 24px 48px -12px rgba(16, 24, 40, 0.18);
+  /* Bayangan hangat & menyebar, seperti tepi cat air */
+  --shadow-xs: 0 1px 2px rgba(90, 78, 58, 0.05);
+  --shadow-sm: 0 2px 6px rgba(90, 78, 58, 0.06), 0 1px 2px rgba(90, 78, 58, 0.04);
+  --shadow-md: 0 8px 22px -4px rgba(90, 78, 58, 0.1);
+  --shadow-lg: 0 28px 56px -16px rgba(90, 78, 58, 0.22);
 
   --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
@@ -46,7 +51,13 @@ body {
 }
 
 body {
-  background: var(--bg);
+  /* Cucian cat air tipis di atas kertas */
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(1100px 640px at 10% -10%, rgba(111, 143, 122, 0.13), transparent 62%),
+    radial-gradient(980px 560px at 94% 2%, rgba(99, 128, 155, 0.12), transparent 64%),
+    radial-gradient(820px 520px at 68% 104%, rgba(194, 165, 89, 0.1), transparent 62%);
+  background-attachment: fixed;
   color: var(--text);
   font-family: var(--font);
   font-size: 14px;
@@ -199,13 +210,13 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d3dae3;
+  background: #d8d1c2;
   border-radius: 20px;
   border: 2px solid var(--bg);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b9c3d0;
+  background: #c2b9a6;
 }
 
 /* ---------- Transisi ---------- */

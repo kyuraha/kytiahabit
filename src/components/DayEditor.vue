@@ -63,7 +63,7 @@ watch(
 const label = computed(() => {
   if (!props.dateKey) return ''
   const d = fromKey(props.dateKey)
-  return `${DAY_NAMES_FULL[(d.getDay() + 6) % 7]}, ${d.getDate()} ${MONTH_NAMES[d.getMonth()]} ${d.getFullYear()}`
+  return `${DAY_NAMES_FULL[d.getDay()]}, ${d.getDate()} ${MONTH_NAMES[d.getMonth()]} ${d.getFullYear()}`
 })
 
 const preview = computed(() => dayScore(draft))
@@ -104,11 +104,8 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
       <div v-if="open" class="overlay" @click.self="emit('close')">
         <div class="panel" role="dialog" aria-modal="true">
           <header class="head">
-            <div class="head-main">
-              <div class="head-label">Catat habit</div>
-              <h2 class="head-date">{{ label }}</h2>
-            </div>
-            <ScoreRing :score="preview" :size="58" caption="skor" />
+            <h2 class="head-date">{{ label }}</h2>
+            <ScoreRing :score="preview" :size="52" />
             <button class="close" title="Tutup" @click="emit('close')">✕</button>
           </header>
 
@@ -116,7 +113,6 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
             <!-- Salat -->
             <section class="sec">
               <div class="sec-head">
-                <span class="sec-icon">🕌</span>
                 <span class="sec-title">Salat</span>
                 <span class="sec-meta">{{ salatDone }}/5</span>
                 <button class="mini" @click="allTepat">Semua tepat</button>
@@ -132,8 +128,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
             <!-- Lari -->
             <section class="sec">
               <div class="sec-head">
-                <span class="sec-icon">🏃</span>
-                <span class="sec-title">Lari Pagi</span>
+                <span class="sec-title">Lari</span>
               </div>
               <div class="row">
                 <span class="row-label">Jarak</span>
@@ -144,11 +139,10 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
             <!-- Semedi -->
             <section class="sec">
               <div class="sec-head">
-                <span class="sec-icon">🧘</span>
                 <span class="sec-title">Semedi</span>
               </div>
               <div class="row">
-                <span class="row-label">Wimhof Breathing</span>
+                <span class="row-label">Wimhof</span>
                 <NumberStepper v-model="draft.semedi.wimhof" unit="round" :max="30" />
               </div>
               <div class="row">
@@ -160,9 +154,8 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
             <!-- Kerja -->
             <section class="sec">
               <div class="sec-head">
-                <span class="sec-icon">💼</span>
                 <span class="sec-title">Kerja</span>
-                <span class="sec-meta">min {{ KERJA_MIN_PER_PHASE }} pomodoro / fase</span>
+                <span class="sec-meta">min {{ KERJA_MIN_PER_PHASE }}/fase</span>
               </div>
               <div class="rows">
                 <div v-for="f in PHASES" :key="f.key" class="row">
@@ -191,7 +184,6 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
             <!-- No Toxic -->
             <section class="sec">
               <div class="sec-head">
-                <span class="sec-icon">🚫</span>
                 <span class="sec-title">No Toxic</span>
               </div>
               <div class="rows">
@@ -205,7 +197,6 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
             <!-- Jurnaling & Belajar -->
             <section class="sec">
               <div class="sec-head">
-                <span class="sec-icon">📝</span>
                 <span class="sec-title">Jurnaling</span>
               </div>
               <div class="row">
@@ -216,7 +207,6 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 
             <section class="sec">
               <div class="sec-head">
-                <span class="sec-icon">📚</span>
                 <span class="sec-title">Belajar</span>
               </div>
               <div class="row">
@@ -228,14 +218,13 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
             <!-- Catatan -->
             <section class="sec">
               <div class="sec-head">
-                <span class="sec-icon">🗒️</span>
                 <span class="sec-title">Catatan</span>
               </div>
               <textarea
                 v-model="draft.notes"
                 class="notes"
                 rows="3"
-                placeholder="Hal yang mau dicatat hari ini…"
+                placeholder="Tulis apa saja…"
               />
             </section>
           </div>
@@ -260,7 +249,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
   position: fixed;
   inset: 0;
   z-index: 60;
-  background: rgba(16, 24, 40, 0.4);
+  background: rgba(58, 50, 40, 0.38);
   backdrop-filter: blur(3px);
   display: flex;
   justify-content: flex-end;
@@ -289,24 +278,12 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
   background: var(--surface-2);
 }
 
-.head-main {
+.head-date {
   flex: 1;
   min-width: 0;
-}
-
-.head-label {
-  font-size: 10.5px;
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-3);
-}
-
-.head-date {
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  margin-top: 2px;
+  letter-spacing: -0.015em;
 }
 
 .close {
@@ -349,10 +326,6 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
   margin-bottom: 11px;
 }
 
-.sec-icon {
-  font-size: 15px;
-}
-
 .sec-title {
   font-size: 13.5px;
   font-weight: 700;
@@ -377,7 +350,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 }
 
 .mini:hover {
-  background: #e2e5ff;
+  background: #d9e5e8;
 }
 
 .rows {
@@ -427,13 +400,13 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 }
 
 .badge.ok {
-  background: #dcfce7;
-  color: #15803d;
+  background: #e9efe5;
+  color: #4c6b46;
 }
 
 .badge.warn {
-  background: #ffedd5;
-  color: #c2410c;
+  background: #f7e9dd;
+  color: #8e5630;
 }
 
 .notes {

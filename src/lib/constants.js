@@ -17,15 +17,15 @@
  */
 
 /* ------------------------------------------------------------------ */
-/*  Palet warna                                                        */
+/*  Palet warna — watercolor: jenuh rendah, hangat, seperti cat air    */
 /* ------------------------------------------------------------------ */
 
 export const PALETTE = {
-  green: { solid: '#22c55e', soft: '#dcfce7', ink: '#15803d', label: 'Hijau' },
-  yellow: { solid: '#eab308', soft: '#fef9c3', ink: '#a16207', label: 'Kuning' },
-  orange: { solid: '#f97316', soft: '#ffedd5', ink: '#c2410c', label: 'Oren' },
-  red: { solid: '#ef4444', soft: '#fee2e2', ink: '#b91c1c', label: 'Merah' },
-  empty: { solid: '#e2e8f0', soft: '#f1f5f9', ink: '#94a3b8', label: 'Kosong' },
+  green: { solid: '#7a9a72', soft: '#e9efe5', ink: '#4c6b46', label: 'Hijau' },
+  yellow: { solid: '#c2a559', soft: '#f6f0dc', ink: '#8a7327', label: 'Kuning' },
+  orange: { solid: '#c2805a', soft: '#f7e9dd', ink: '#8e5630', label: 'Oren' },
+  red: { solid: '#b06e6c', soft: '#f4e5e3', ink: '#894947', label: 'Merah' },
+  empty: { solid: '#ded7c9', soft: '#f2efe8', ink: '#a29b8c', label: 'Kosong' },
 }
 
 export const colorOf = (key) => PALETTE[key] || PALETTE.empty
@@ -113,21 +113,21 @@ const numberRow = (group, label, path, unit, goal, min = 0) => ({
 })
 
 export const GROUPS = {
-  salat: { label: 'Salat', icon: '🕌', color: '#10b981' },
-  lari: { label: 'Lari Pagi', icon: '🏃', color: '#f97316' },
-  semedi: { label: 'Semedi', icon: '🧘', color: '#8b5cf6' },
-  kerja: { label: 'Kerja', icon: '💼', color: '#3b82f6' },
-  notoxic: { label: 'No Toxic', icon: '🚫', color: '#ef4444' },
-  jurnaling: { label: 'Jurnaling', icon: '📝', color: '#14b8a6' },
-  belajar: { label: 'Belajar', icon: '📚', color: '#6366f1' },
+  salat: { label: 'Salat', color: '#6f8f7a' },
+  lari: { label: 'Lari', color: '#c08a5e' },
+  semedi: { label: 'Semedi', color: '#8a7fa0' },
+  kerja: { label: 'Kerja', color: '#63809b' },
+  notoxic: { label: 'No Toxic', color: '#b0747a' },
+  jurnaling: { label: 'Jurnaling', color: '#6f9a97' },
+  belajar: { label: 'Belajar', color: '#7d80a8' },
 }
 
 export const GROUP_ORDER = ['salat', 'lari', 'semedi', 'kerja', 'notoxic', 'jurnaling', 'belajar']
 
 export const ROWS = [
   ...PRAYERS.map((p) => statusRow('salat', p.label, ['salat', p.key], SALAT_LEVELS)),
-  numberRow('lari', 'Lari Pagi', ['lari', 'km'], 'km', 3),
-  numberRow('semedi', 'Wimhof Breathing', ['semedi', 'wimhof'], 'round', 3),
+  numberRow('lari', 'Lari', ['lari', 'km'], 'km', 3),
+  numberRow('semedi', 'Wimhof', ['semedi', 'wimhof'], 'round', 3),
   numberRow('semedi', 'Meditasi', ['semedi', 'meditasi'], 'menit', 10),
   ...PHASES.map((f) =>
     numberRow('kerja', f.label, ['kerja', f.key], 'pomodoro', KERJA_MIN_PER_PHASE, KERJA_MIN_PER_PHASE),

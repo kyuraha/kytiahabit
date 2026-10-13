@@ -72,7 +72,7 @@ function pick(key) {
 
 .opt:hover {
   background: var(--surface-3);
-  border-color: #cfd7e0;
+  border-color: #d6cebf;
 }
 
 .opt.active {

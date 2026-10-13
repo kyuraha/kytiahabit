@@ -89,7 +89,12 @@ export function groupScore(day, groupKey) {
 }
 
 export function groupScores(day) {
-  return ROW_GROUPS.map((g) => ({ key: g.key, label: g.label, icon: g.icon, color: g.color, score: groupScore(day, g.key) }))
+  return ROW_GROUPS.map((g) => ({
+    key: g.key,
+    label: g.label,
+    color: g.color,
+    score: groupScore(day, g.key),
+  }))
 }
 
 /* ------------------------------------------------------------------ */

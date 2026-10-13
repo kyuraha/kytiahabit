@@ -125,13 +125,13 @@ kalau ada). `localhost` sudah otomatis terdaftar.
 
 | Habit | Isi | Skor harian |
 |---|---|---|
-| 🕌 **Salat** | 5 salat wajib: Subuh, Dzuhur, Ashar, Maghrib, Isya | Tepat = 100%, Telat = 66%, Sangat Telat = 33%, Tidak = 0% |
-| 🏃 **Lari Pagi** | Jarak (km) | target 3 km |
-| 🧘 **Semedi** | Wimhof Breathing (round) + Meditasi (menit) | target 3 round & 10 menit |
-| 💼 **Kerja** | 3 fase, tiap fase min. 3 pomodoro | target 9 pomodoro total |
-| 🚫 **No Toxic** | 3 fase, tiap fase 4 warna (Bersih → Toxic) | Bersih = 100% … Toxic = 0% |
-| 📝 **Jurnaling** | Jumlah pomodoro | target 1 |
-| 📚 **Belajar** | Jumlah pomodoro | target 1 |
+| **Salat** | 5 salat wajib: Subuh, Dzuhur, Ashar, Maghrib, Isya | Tepat = 100%, Telat = 66%, Sangat Telat = 33%, Tidak = 0% |
+| **Lari** | Jarak (km) | target 3 km |
+| **Semedi** | Wimhof (round) + Meditasi (menit) | target 3 round & 10 menit |
+| **Kerja** | 3 fase, tiap fase min. 3 pomodoro | target 9 pomodoro total |
+| **No Toxic** | 3 fase, tiap fase 4 warna (Bersih → Toxic) | Bersih = 100% … Toxic = 0% |
+| **Jurnaling** | Jumlah pomodoro | target 1 |
+| **Belajar** | Jumlah pomodoro | target 1 |
 
 **Skor hari** = rata-rata rasio semua baris (16 baris). Dipakai untuk mewarnai sel di
 tampilan bulanan, angka streak, dan kartu ringkasan.
@@ -142,7 +142,7 @@ tampilan bulanan, angka streak, dan kartu ringkasan.
 
 Desainnya mengikuti pola habit tracker minimalis yang paling terbukti:
 
-- **Tampilan Mingguan** — 7 kolom (Sen–Min), sel besar, nilainya ditulis langsung
+- **Tampilan Mingguan** — 7 kolom (Min–Sab), sel besar, nilainya ditulis langsung
   (mis. `5` km, `3` round). Cocok buat lihat detail dan isi cepat.
 - **Tampilan Bulanan** — tanggal jadi kolom, habit jadi baris, sel kecil berwarna
   seperti *heatmap*. Cocok buat lihat pola sebulan sekaligus.
@@ -150,6 +150,26 @@ Desainnya mengikuti pola habit tracker minimalis yang paling terbukti:
 Keduanya memakai **struktur matrix yang sama**: baris dikelompokkan per habit
 dengan header grup + bar rata-rata. Klik sel mana pun untuk membuka panel input
 harian.
+
+Minggu dimulai **Minggu**, bukan Senin.
+
+### Palet warna
+
+Terinspirasi cat air — jenuh rendah, putih hangat (bukan putih murni), dan bayangan
+bernada cokelat. Semua token ada di `:root` pada `src/style.css`.
+
+Empat level status (salat & no toxic) memakai versi pudar dari hijau/kuning/oren/merah
+di `PALETTE` (`src/lib/constants.js`):
+
+| Level | Warna |
+|---|---|
+| Tepat / Bersih | `#7a9a72` |
+| Telat / Sedikit | `#c2a559` |
+| Sangat Telat / Banyak | `#c2805a` |
+| Tidak / Toxic | `#b06e6c` |
+
+Baris bernilai angka (km, round, menit, pomodoro) diwarnai otomatis dari rasio
+terhadap targetnya: ≥80% hijau, ≥50% kuning, ≥25% oren, di bawahnya merah.
 
 ---
 
@@ -159,8 +179,8 @@ harian.
 src/
 ├── firebase.js            # config + loader lazy SDK Firebase
 ├── lib/
-│   ├── constants.js       # definisi habit, level warna, baris matrix
-│   ├── date.js            # helper minggu/bulan (minggu mulai Senin)
+│   ├── constants.js       # definisi habit, palet warna, baris matrix
+│   ├── date.js            # helper minggu/bulan (minggu mulai Minggu)
 │   └── scoring.js         # nilai + warna sel, skor harian, streak
 ├── stores/
 │   ├── auth.js            # login Google + logout (+ demo mode)
@@ -171,8 +191,7 @@ src/
 │   ├── StatusPicker.vue   # pemilih 4 warna
 │   ├── NumberStepper.vue  # input angka +/−
 │   ├── ScoreRing.vue      # ring skor
-│   ├── StatStrip.vue      # kartu ringkasan
-│   └── Legend.vue         # keterangan warna
+│   └── StatStrip.vue      # kartu ringkasan
 └── views/
     ├── LoginView.vue
     └── DashboardView.vue

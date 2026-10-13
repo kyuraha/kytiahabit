@@ -6,7 +6,6 @@ import { useDaysStore } from '@/stores/days'
 import MatrixGrid from '@/components/MatrixGrid.vue'
 import DayEditor from '@/components/DayEditor.vue'
 import StatStrip from '@/components/StatStrip.vue'
-import Legend from '@/components/Legend.vue'
 import {
   weekDates,
   monthDates,
@@ -106,10 +105,7 @@ const editorEntry = computed(() => days.getDay(editorKey.value))
 <template>
   <div class="page">
     <header class="top">
-      <div class="brand">
-        <span class="mark">✅</span>
-        <span class="name">Kytia Habit</span>
-      </div>
+      <div class="brand">Kytia Habit</div>
 
       <div class="nav">
         <button class="navbtn" title="Sebelumnya" @click="shift(-1)">‹</button>
@@ -127,8 +123,8 @@ const editorEntry = computed(() => days.getDay(editorKey.value))
           <button :class="{ active: mode === 'month' }" @click="mode = 'month'">Bulanan</button>
         </div>
 
-        <button class="btn btn-primary btn-sm cta" @click="openEditor(today)">
-          <span class="plus">+</span><span class="cta-txt">Isi hari ini</span>
+        <button class="btn btn-primary btn-sm cta" title="Catat habit hari ini" @click="openEditor(today)">
+          <span class="plus">+</span><span class="cta-txt">Catat</span>
         </button>
 
         <div class="user">
@@ -154,21 +150,13 @@ const editorEntry = computed(() => days.getDay(editorKey.value))
     <main class="content">
       <StatStrip :stats="stats" :streak="streak" />
 
-      <div class="toolbar">
-        <Legend />
-        <div v-if="days.loading" class="loading">
-          <span class="spin" /> Memuat…
-        </div>
+      <div v-if="days.loading" class="loading">
+        <span class="spin" /> Memuat…
       </div>
 
       <div v-if="days.error" class="err">{{ days.error }}</div>
 
       <MatrixGrid :dates="dates" :mode="mode" :days="dayMap" @edit="openEditor" />
-
-      <p class="foot-note">
-        {{ mode === 'week' ? 'Tampilan mingguan — sel besar, nilai ditampilkan langsung.' : 'Tampilan bulanan — pola warna satu bulan penuh.' }}
-        Klik sel untuk mencatat.
-      </p>
     </main>
 
     <DayEditor
@@ -199,25 +187,15 @@ const editorEntry = computed(() => days.getDay(editorKey.value))
   align-items: center;
   gap: 18px;
   padding: 12px 22px;
-  background: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 254, 251, 0.86);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   flex-wrap: wrap;
 }
 
 .brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
   flex: none;
-}
-
-.mark {
-  font-size: 18px;
-}
-
-.name {
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 750;
   letter-spacing: -0.02em;
 }
@@ -292,7 +270,7 @@ const editorEntry = computed(() => days.getDay(editorKey.value))
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: linear-gradient(140deg, #4f46e5, #7c6cf0);
+  background: linear-gradient(140deg, #5c7f8b, #7d97a0);
   color: #fff;
   font-weight: 700;
   font-size: 13.5px;
@@ -346,8 +324,8 @@ const editorEntry = computed(() => days.getDay(editorKey.value))
   margin-top: 6px;
   font-size: 10px;
   font-weight: 700;
-  color: #b45309;
-  background: #fef3c7;
+  color: #7d6528;
+  background: #f8f1e0;
   padding: 2px 7px;
   border-radius: 20px;
 }
@@ -359,12 +337,12 @@ const editorEntry = computed(() => days.getDay(editorKey.value))
   border-radius: 8px;
   font-size: 13px;
   font-weight: 550;
-  color: #b91c1c;
+  color: #894947;
   transition: background 0.13s ease;
 }
 
 .menu-item:hover {
-  background: #fef2f2;
+  background: #f4e5e3;
 }
 
 .scrim {
@@ -385,24 +363,12 @@ const editorEntry = computed(() => days.getDay(editorKey.value))
   margin: 0 auto;
 }
 
-.toolbar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.toolbar > :first-child {
-  flex: 1;
-  min-width: 0;
-}
-
 .loading {
   display: flex;
   align-items: center;
   gap: 7px;
   font-size: 12.5px;
   color: var(--text-3);
-  flex: none;
 }
 
 .spin {
@@ -422,18 +388,11 @@ const editorEntry = computed(() => days.getDay(editorKey.value))
 
 .err {
   font-size: 13px;
-  color: #b91c1c;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
+  color: #894947;
+  background: #f4e5e3;
+  border: 1px solid #e3cfcc;
   border-radius: var(--radius);
   padding: 10px 14px;
-}
-
-.foot-note {
-  font-size: 12px;
-  color: var(--text-3);
-  text-align: center;
-  padding-top: 2px;
 }
 
 @media (max-width: 900px) {

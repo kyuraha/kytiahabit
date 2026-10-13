@@ -6,8 +6,7 @@ const auth = useAuthStore()
 
 <template>
   <div v-if="!auth.ready" class="boot">
-    <div class="boot-mark">✅</div>
-    <div class="boot-text">Menyiapkan…</div>
+    <div class="boot-text">Memuat…</div>
   </div>
 
   <router-view v-else v-slot="{ Component }">
@@ -22,30 +21,23 @@ const auth = useAuthStore()
   min-height: 100vh;
   display: grid;
   place-content: center;
-  justify-items: center;
-  gap: 12px;
   color: var(--text-3);
 }
 
-.boot-mark {
-  font-size: 34px;
-  animation: pulse 1.4s ease-in-out infinite;
-}
-
 .boot-text {
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 500;
+  letter-spacing: 0.01em;
+  animation: pulse 1.6s ease-in-out infinite;
 }
 
 @keyframes pulse {
   0%,
   100% {
-    opacity: 0.45;
-    transform: scale(0.94);
+    opacity: 0.4;
   }
   50% {
     opacity: 1;
-    transform: scale(1);
   }
 }
 </style>

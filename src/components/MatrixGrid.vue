@@ -55,7 +55,7 @@ function monthCellStyle(cell) {
 }
 
 function tooltip(d, row, cell) {
-  const date = `${DAY_NAMES[(new Date(d).getDay() + 6) % 7]}, ${new Date(d).getDate()}`
+  const date = `${DAY_NAMES[new Date(d).getDay()]}, ${new Date(d).getDate()}`
   if (!cell.has) return `${row.label} · ${date} — belum diisi`
   const val =
     row.kind === 'number' ? `${cell.value} ${row.unit}` : cell.label || cell.value
@@ -69,23 +69,20 @@ const isFuture = (d) => toKey(d) > today
   <div class="matrix" :class="`mode-${mode}`">
     <div class="grid" :style="gridStyle">
       <!-- Header -->
-      <div class="corner">
-        <span class="corner-txt">{{ mode === 'week' ? 'Habit' : 'Habit' }}</span>
-      </div>
+      <div class="corner" />
       <div
         v-for="d in dates"
         :key="'h' + toKey(d)"
         class="dayhead"
         :class="{ weekend: isWeekend(d), today: toKey(d) === today, future: isFuture(d) }"
       >
-        <span v-if="mode === 'week'" class="dname">{{ DAY_NAMES[(new Date(d).getDay() + 6) % 7] }}</span>
+        <span v-if="mode === 'week'" class="dname">{{ DAY_NAMES[new Date(d).getDay()] }}</span>
         <span class="dnum">{{ new Date(d).getDate() }}</span>
       </div>
 
       <!-- Groups -->
       <template v-for="g in ROW_GROUPS" :key="g.key">
         <div class="grouplabel" :style="{ '--gc': g.color }">
-          <span class="gicon">{{ g.icon }}</span>
           <span class="gname">{{ g.label }}</span>
         </div>
         <div class="groupavg" :style="{ '--gc': g.color, gridColumn: `span ${dates.length}` }">
@@ -127,7 +124,6 @@ const isFuture = (d) => toKey(d) > today
               <span v-if="cellFor(d, row).has" class="val">
                 {{ row.kind === 'number' ? cellFor(d, row).value : cellFor(d, row).label }}
               </span>
-              <span v-else class="dash">·</span>
             </template>
           </button>
         </template>
@@ -171,18 +167,7 @@ const isFuture = (d) => toKey(d) > today
   left: 0;
   z-index: 4;
   background: var(--surface);
-  display: flex;
-  align-items: center;
-  padding-left: 4px;
   height: 46px;
-}
-
-.corner-txt {
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--text-3);
 }
 
 .dayhead {
@@ -216,7 +201,7 @@ const isFuture = (d) => toKey(d) > today
 
 .dayhead.weekend .dname,
 .dayhead.weekend .dnum {
-  color: #c07a7a;
+  color: #b07d78;
 }
 
 .dayhead.future .dname,
@@ -252,15 +237,11 @@ const isFuture = (d) => toKey(d) > today
   border-radius: 7px;
 }
 
-.gicon {
-  font-size: 13px;
-}
-
 .gname {
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 650;
   color: var(--text);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.005em;
 }
 
 .groupavg {
@@ -303,7 +284,7 @@ const isFuture = (d) => toKey(d) > today
   display: flex;
   align-items: center;
   gap: 6px;
-  padding-left: 6px;
+  padding-left: 14px;
   min-height: 34px;
 }
 
@@ -385,12 +366,6 @@ const isFuture = (d) => toKey(d) > today
 .cell.num .val {
   font-variant-numeric: tabular-nums;
   font-size: 12.5px;
-}
-
-.cell .dash {
-  color: var(--text-3);
-  font-size: 13px;
-  opacity: 0.6;
 }
 
 @media (max-width: 720px) {
