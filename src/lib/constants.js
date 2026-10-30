@@ -7,10 +7,11 @@
  *   salat:     { subuh: 'tepat'|'telat'|'sangat_telat'|'tidak', dzuhur: ..., ashar: ..., maghrib: ..., isya: ... },
  *   lari:      { km: 5 },
  *   semedi:    { wimhof: 3, meditasi: 10 },
- *   kerja:     { fase1: 3, fase2: 3, fase3: 3 },
- *   notoxic:   { fase1: 'bersih'|'sedikit'|'banyak'|'toxic', fase2: ..., fase3: ... },
+ *   social:    { posts: 3 },
  *   jurnaling: { pomodoro: 1 },
+ *   ngaji:     { menit: 5 },
  *   belajar:   { pomodoro: 4 },
+ *   nofap:     { status: 'ya'|'tidak' },
  *   notes:     'catatan bebas...',
  *   updatedAt: <timestamp>,
  * }
@@ -42,12 +43,10 @@ export const SALAT_LEVELS = [
   { key: 'tidak', label: 'Tidak', color: 'red', weight: 0 },
 ]
 
-/** Dipakai untuk 3 fase "No Toxic" — warna mirip salat. */
-export const NOTOXIC_LEVELS = [
-  { key: 'bersih', label: 'Bersih', color: 'green', weight: 1 },
-  { key: 'sedikit', label: 'Sedikit', color: 'yellow', weight: 0.66 },
-  { key: 'banyak', label: 'Banyak', color: 'orange', weight: 0.33 },
-  { key: 'toxic', label: 'Toxic', color: 'red', weight: 0 },
+/** Dipakai untuk habit "No Fap" — ya/tidak. */
+export const NOFAP_LEVELS = [
+  { key: 'ya', label: 'Ya', color: 'green', weight: 1 },
+  { key: 'tidak', label: 'Tidak', color: 'red', weight: 0 },
 ]
 
 export const levelWeight = (levels, key) => {
@@ -67,14 +66,15 @@ export const PRAYERS = [
   { key: 'isya', label: 'Isya' },
 ]
 
-export const PHASES = [
-  { key: 'fase1', label: 'Fase 1' },
-  { key: 'fase2', label: 'Fase 2' },
-  { key: 'fase3', label: 'Fase 3' },
-]
+/** Minimal per hari untuk habit "semedi". */
+export const WIMHOF_MIN_ROUNDS = 1
+export const MEDITASI_MIN_MENIT = 5
 
-/** Minimal pomodoro per fase untuk habit "kerja". */
-export const KERJA_MIN_PER_PHASE = 3
+/** Minimal post per hari untuk habit "social". */
+export const SOCIAL_MIN_POSTS = 3
+
+/** Minimal menit per hari untuk habit "ngaji". */
+export const NGAJI_MIN_MENIT = 5
 
 /* ------------------------------------------------------------------ */
 /*  Baris matrix                                                       */
@@ -116,25 +116,34 @@ export const GROUPS = {
   salat: { label: 'Salat', color: '#4f6b4a' },
   lari: { label: 'Lari', color: '#a85f34' },
   semedi: { label: 'Semedi', color: '#6b5f7a' },
-  kerja: { label: 'Kerja', color: '#44606e' },
-  notoxic: { label: 'No Toxic', color: '#8f3f3a' },
+  social: { label: 'Social', color: '#44606e' },
   jurnaling: { label: 'Jurnaling', color: '#4a6f6a' },
+  ngaji: { label: 'Ngaji', color: '#7a6b3f' },
   belajar: { label: 'Belajar', color: '#575b7a' },
+  nofap: { label: 'No Fap', color: '#8f3f3a' },
 }
 
-export const GROUP_ORDER = ['salat', 'lari', 'semedi', 'kerja', 'notoxic', 'jurnaling', 'belajar']
+export const GROUP_ORDER = [
+  'salat',
+  'lari',
+  'semedi',
+  'social',
+  'jurnaling',
+  'ngaji',
+  'belajar',
+  'nofap',
+]
 
 export const ROWS = [
   ...PRAYERS.map((p) => statusRow('salat', p.label, ['salat', p.key], SALAT_LEVELS)),
-  numberRow('lari', 'Lari', ['lari', 'km'], 'km', 3),
-  numberRow('semedi', 'Wimhof', ['semedi', 'wimhof'], 'round', 3),
-  numberRow('semedi', 'Meditasi', ['semedi', 'meditasi'], 'menit', 10),
-  ...PHASES.map((f) =>
-    numberRow('kerja', f.label, ['kerja', f.key], 'pomodoro', KERJA_MIN_PER_PHASE, KERJA_MIN_PER_PHASE),
-  ),
-  ...PHASES.map((f) => statusRow('notoxic', f.label, ['notoxic', f.key], NOTOXIC_LEVELS)),
+  numberRow('lari', 'Lari', ['lari', 'km'], 'km', 2),
+  numberRow('semedi', 'Wimhof', ['semedi', 'wimhof'], 'round', WIMHOF_MIN_ROUNDS),
+  numberRow('semedi', 'Meditasi', ['semedi', 'meditasi'], 'menit', MEDITASI_MIN_MENIT),
+  numberRow('social', 'Posts', ['social', 'posts'], 'post', SOCIAL_MIN_POSTS, SOCIAL_MIN_POSTS),
   numberRow('jurnaling', 'Jurnaling', ['jurnaling', 'pomodoro'], 'pomodoro', 1),
+  numberRow('ngaji', 'Durasi', ['ngaji', 'menit'], 'menit', NGAJI_MIN_MENIT, NGAJI_MIN_MENIT),
   numberRow('belajar', 'Belajar', ['belajar', 'pomodoro'], 'pomodoro', 1),
+  statusRow('nofap', 'Hari Ini', ['nofap', 'status'], NOFAP_LEVELS),
 ]
 
 /** Baris dikelompokkan untuk kebutuhan render header. */

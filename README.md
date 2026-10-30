@@ -126,14 +126,15 @@ kalau ada). `localhost` sudah otomatis terdaftar.
 | Habit | Isi | Skor harian |
 |---|---|---|
 | **Salat** | 5 salat wajib: Subuh, Dzuhur, Ashar, Maghrib, Isya | Tepat = 100%, Telat = 66%, Sangat Telat = 33%, Tidak = 0% |
-| **Lari** | Jarak (km) | target 3 km |
-| **Semedi** | Wimhof (round) + Meditasi (menit) | target 3 round & 10 menit |
-| **Kerja** | 3 fase, tiap fase min. 3 pomodoro | target 9 pomodoro total |
-| **No Toxic** | 3 fase, tiap fase 4 warna (Bersih → Toxic) | Bersih = 100% … Toxic = 0% |
+| **Lari** | Jarak (km) | target 2 km |
+| **Semedi** | Wimhof (round) + Meditasi (menit) | min. 1 round & 5 menit |
+| **Social** | Jumlah post | min. 3 post |
 | **Jurnaling** | Jumlah pomodoro | target 1 |
+| **Ngaji** | Durasi (menit) | min. 5 menit |
 | **Belajar** | Jumlah pomodoro | target 1 |
+| **No Fap** | Ya / Tidak | Ya = 100%, Tidak = 0% |
 
-**Skor hari** = rata-rata rasio semua baris (16 baris). Dipakai untuk mewarnai sel di
+**Skor hari** = rata-rata rasio semua baris (13 baris). Dipakai untuk mewarnai sel di
 tampilan bulanan, angka streak, dan kartu ringkasan.
 
 ---
@@ -158,15 +159,15 @@ Minggu dimulai **Minggu**, bukan Senin.
 Terinspirasi cat air — jenuh rendah, putih hangat (bukan putih murni), dan bayangan
 bernada cokelat. Semua token ada di `:root` pada `src/style.css`.
 
-Empat level status (salat & no toxic) memakai versi pudar dari hijau/kuning/oren/merah
-di `PALETTE` (`src/lib/constants.js`):
+Status memakai versi pudar dari hijau/kuning/oren/merah di `PALETTE`
+(`src/lib/constants.js`). Salat punya 4 level, No Fap memakai Ya/Tidak:
 
 | Level | Warna |
 |---|---|
-| Tepat / Bersih | `#7a9a72` |
-| Telat / Sedikit | `#c2a559` |
-| Sangat Telat / Banyak | `#c2805a` |
-| Tidak / Toxic | `#b06e6c` |
+| Tepat / Ya | `#7a9a72` |
+| Telat | `#c2a559` |
+| Sangat Telat | `#c2805a` |
+| Tidak | `#b06e6c` |
 
 Baris bernilai angka (km, round, menit, pomodoro) diwarnai otomatis dari rasio
 terhadap targetnya: ≥80% hijau, ≥50% kuning, ≥25% oren, di bawahnya merah.
@@ -207,10 +208,11 @@ src/
   "salat": { "subuh": "tepat", "dzuhur": "telat", "ashar": "tepat", "maghrib": "tepat", "isya": "tidak" },
   "lari": { "km": 5 },
   "semedi": { "wimhof": 3, "meditasi": 10 },
-  "kerja": { "fase1": 3, "fase2": 4, "fase3": 3 },
-  "notoxic": { "fase1": "bersih", "fase2": "sedikit", "fase3": "toxic" },
+  "social": { "posts": 3 },
   "jurnaling": { "pomodoro": 1 },
+  "ngaji": { "menit": 5 },
   "belajar": { "pomodoro": 4 },
+  "nofap": { "status": "ya" },
   "notes": ""
 }
 ```
@@ -220,5 +222,5 @@ src/
 ## Mengubah definisi habit
 
 Semua definisi ada di **satu file**: `src/lib/constants.js`.
-Mau tambah salat sunnah, ganti target km, atau ubah jumlah fase?
+Mau tambah salat sunnah, ganti target km, atau ubah minimal post/ngaji?
 Cukup edit di sana — matrix, editor, dan perhitungan skor ikut menyesuaikan

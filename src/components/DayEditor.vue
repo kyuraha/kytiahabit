@@ -5,10 +5,12 @@ import NumberStepper from './NumberStepper.vue'
 import ScoreRing from './ScoreRing.vue'
 import {
   SALAT_LEVELS,
-  NOTOXIC_LEVELS,
+  NOFAP_LEVELS,
   PRAYERS,
-  PHASES,
-  KERJA_MIN_PER_PHASE,
+  WIMHOF_MIN_ROUNDS,
+  MEDITASI_MIN_MENIT,
+  SOCIAL_MIN_POSTS,
+  NGAJI_MIN_MENIT,
 } from '@/lib/constants'
 import { dayScore } from '@/lib/scoring'
 import { fromKey, DAY_NAMES_FULL, MONTH_NAMES } from '@/lib/date'
@@ -27,10 +29,11 @@ function blank() {
     salat: { subuh: '', dzuhur: '', ashar: '', maghrib: '', isya: '' },
     lari: { km: 0 },
     semedi: { wimhof: 0, meditasi: 0 },
-    kerja: { fase1: 0, fase2: 0, fase3: 0 },
-    notoxic: { fase1: '', fase2: '', fase3: '' },
+    social: { posts: 0 },
     jurnaling: { pomodoro: 0 },
+    ngaji: { menit: 0 },
     belajar: { pomodoro: 0 },
+    nofap: { status: '' },
     notes: '',
   }
 }
@@ -143,58 +146,41 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
               </div>
               <div class="row">
                 <span class="row-label">Wimhof</span>
-                <NumberStepper v-model="draft.semedi.wimhof" unit="round" :max="30" />
+                <NumberStepper
+                  v-model="draft.semedi.wimhof"
+                  unit="round"
+                  :max="30"
+                  :met="draft.semedi.wimhof >= WIMHOF_MIN_ROUNDS"
+                />
               </div>
               <div class="row">
                 <span class="row-label">Meditasi</span>
-                <NumberStepper v-model="draft.semedi.meditasi" unit="menit" :step="5" :max="300" />
+                <NumberStepper
+                  v-model="draft.semedi.meditasi"
+                  unit="menit"
+                  :step="5"
+                  :max="300"
+                  :met="draft.semedi.meditasi >= MEDITASI_MIN_MENIT"
+                />
               </div>
             </section>
 
-            <!-- Kerja -->
+            <!-- Social -->
             <section class="sec">
               <div class="sec-head">
-                <span class="sec-title">Kerja</span>
-                <span class="sec-meta">min {{ KERJA_MIN_PER_PHASE }}/fase</span>
+                <span class="sec-title">Social</span>
               </div>
-              <div class="rows">
-                <div v-for="f in PHASES" :key="f.key" class="row">
-                  <span class="row-label">
-                    {{ f.label }}
-                    <span
-                      class="badge"
-                      :class="{
-                        ok: draft.kerja[f.key] >= KERJA_MIN_PER_PHASE,
-                        warn: draft.kerja[f.key] > 0 && draft.kerja[f.key] < KERJA_MIN_PER_PHASE,
-                      }"
-                    >
-                      {{ draft.kerja[f.key] }}/{{ KERJA_MIN_PER_PHASE }}
-                    </span>
-                  </span>
-                  <NumberStepper
-                    v-model="draft.kerja[f.key]"
-                    unit="pomodoro"
-                    :max="20"
-                    :met="draft.kerja[f.key] >= KERJA_MIN_PER_PHASE"
-                  />
-                </div>
+              <div class="row">
+                <span class="row-label">Posts</span>
+                <NumberStepper
+                  v-model="draft.social.posts"
+                  unit="post"
+                  :max="50"
+                  :met="draft.social.posts >= SOCIAL_MIN_POSTS"
+                />
               </div>
             </section>
 
-            <!-- No Toxic -->
-            <section class="sec">
-              <div class="sec-head">
-                <span class="sec-title">No Toxic</span>
-              </div>
-              <div class="rows">
-                <div v-for="f in PHASES" :key="f.key" class="row">
-                  <span class="row-label">{{ f.label }}</span>
-                  <StatusPicker v-model="draft.notoxic[f.key]" :levels="NOTOXIC_LEVELS" compact />
-                </div>
-              </div>
-            </section>
-
-            <!-- Jurnaling & Belajar -->
             <section class="sec">
               <div class="sec-head">
                 <span class="sec-title">Jurnaling</span>
@@ -205,6 +191,23 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
               </div>
             </section>
 
+            <!-- Ngaji -->
+            <section class="sec">
+              <div class="sec-head">
+                <span class="sec-title">Ngaji</span>
+              </div>
+              <div class="row">
+                <span class="row-label">Durasi</span>
+                <NumberStepper
+                  v-model="draft.ngaji.menit"
+                  unit="menit"
+                  :step="5"
+                  :max="300"
+                  :met="draft.ngaji.menit >= NGAJI_MIN_MENIT"
+                />
+              </div>
+            </section>
+
             <section class="sec">
               <div class="sec-head">
                 <span class="sec-title">Belajar</span>
@@ -212,6 +215,21 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
               <div class="row">
                 <span class="row-label">Pomodoro</span>
                 <NumberStepper v-model="draft.belajar.pomodoro" unit="pomodoro" :max="20" />
+              </div>
+            </section>
+
+            <!-- No Fap -->
+            <section class="sec">
+              <div class="sec-head">
+                <span class="sec-title">No Fap</span>
+              </div>
+              <div class="row">
+                <span class="row-label">Hari ini</span>
+                <StatusPicker
+                  v-model="draft.nofap.status"
+                  class="nofap-picker"
+                  :levels="NOFAP_LEVELS"
+                />
               </div>
             </section>
 
@@ -389,24 +407,8 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
   min-width: 0;
 }
 
-.badge {
-  font-size: 10px;
-  font-weight: 700;
-  padding: 1px 6px;
-  border-radius: 20px;
-  background: var(--surface-3);
-  color: var(--text-3);
-  font-variant-numeric: tabular-nums;
-}
-
-.badge.ok {
-  background: #dde5d9;
-  color: #33452f;
-}
-
-.badge.warn {
-  background: #edddd2;
-  color: #6e3c1f;
+.nofap-picker {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .notes {

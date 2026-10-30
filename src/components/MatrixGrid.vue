@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { ROW_GROUPS, colorOf } from '@/lib/constants'
-import { rowCell, groupScore } from '@/lib/scoring'
+import { rowCell, groupScore, dayScore } from '@/lib/scoring'
 import { toKey, DAY_NAMES, isWeekend, todayKey as todayKeyFn } from '@/lib/date'
 
 const props = defineProps({
@@ -22,6 +22,7 @@ const gridStyle = computed(() => ({
 
 const dayFor = (d) => props.days[toKey(d)] || null
 const cellFor = (d, row) => rowCell(dayFor(d), row)
+const scoreFor = (d) => dayScore(dayFor(d))
 
 function groupAvg(g) {
   const vals = props.dates.map((d) => groupScore(dayFor(d), g.key)).filter((v) => v != null)
@@ -78,6 +79,17 @@ const isFuture = (d) => toKey(d) > today
       >
         <span v-if="mode === 'week'" class="dname">{{ DAY_NAMES[new Date(d).getDay()] }}</span>
         <span class="dnum">{{ new Date(d).getDate() }}</span>
+      </div>
+
+      <!-- Skor harian -->
+      <div class="scorelabel">Skor</div>
+      <div
+        v-for="d in dates"
+        :key="'s' + toKey(d)"
+        class="scorecell"
+        :class="{ today: toKey(d) === today, future: isFuture(d) }"
+      >
+        {{ scoreFor(d) == null ? '–' : scoreFor(d) + '%' }}
       </div>
 
       <!-- Groups -->
@@ -220,6 +232,49 @@ const isFuture = (d) => toKey(d) > today
 
 .dayhead.today .dnum {
   color: var(--accent-ink);
+}
+
+/* ---------- Skor harian ---------- */
+
+.scorelabel {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  padding-left: 14px;
+  min-height: 32px;
+  font-size: 12.5px;
+  font-weight: 650;
+  color: var(--text);
+}
+
+.scorecell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  border-radius: 6px;
+  background: var(--surface-2);
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-2);
+}
+
+.mode-month .scorecell {
+  min-height: 26px;
+  border-radius: 4px;
+  font-size: 10px;
+}
+
+.scorecell.today {
+  box-shadow: inset 0 0 0 1.5px var(--accent);
+}
+
+.scorecell.future {
+  opacity: 0.55;
 }
 
 /* ---------- Group header ---------- */
